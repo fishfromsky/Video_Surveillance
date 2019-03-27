@@ -56,7 +56,8 @@
         </div>
       </el-dialog>
       <div style="margin-right: auto;  margin-left: auto;width:510px;  height: 400px; margin-top: 50px">
-        <el-transfer v-model="cam_id" :data="cam_data" style="text-align: left" :titles="titles"></el-transfer>
+        <el-transfer v-model="cam_id" :data="cam_data" style="text-align: left" :titles="titles"
+                     @change="cam_id_change"></el-transfer>
       </div>
 
       <el-dialog title="RTSP" :visible.sync="rtsp_show">
@@ -71,22 +72,23 @@
       </el-row>
     </div>
     <div class="algorithm" v-if="active === 2">
-      <el-form :inline="true" :model="formInline" v-for="cam in cam_id" :key="cam" class="demo-form-inline">
-        <el-form-item :label="cam">
+      <el-form :inline="true" :model="formInline" v-for="form in formInline" :key="form" class="demo-form-inline">
+        <el-form-item :label="form.cam_id">
         </el-form-item>
         <el-form-item label="帽子">
-          <el-checkbox v-model="formInline.maozi_checked"></el-checkbox>
+          <el-checkbox v-model="form.maozi_checked"></el-checkbox>
         </el-form-item>
         <el-form-item label="口罩">
-          <el-checkbox v-model="formInline.kouzhao_checked"></el-checkbox>
+          <el-checkbox v-model="form.kouzhao_checked"></el-checkbox>
         </el-form-item>
         <el-form-item label="老鼠">
-          <el-checkbox v-model="formInline.mouse_checked"></el-checkbox>
+          <el-checkbox v-model="form.mouse_checked"></el-checkbox>
         </el-form-item>
         <el-form-item label="抓图">
-          <el-checkbox v-model="formInline.picture_checked"></el-checkbox>
+          <el-checkbox v-model="form.picture_checked"></el-checkbox>
         </el-form-item>
       </el-form>
+      <el-button @click="suanfa_confirm">配置</el-button>
     </div>
 
     <div style="text-align: center; margin-top: 40px">
@@ -162,12 +164,7 @@
         titles: ['可选摄像头编号', '已选摄像头编号'],  //选择摄像头部件的标题
         rtsp_show: false,  //rtsp显示窗口是否显示
         gridData: [],  //rtsp窗口显示的数据
-        formInline: {
-          maozi_checked: false,
-          kouzhao_checked: false,
-          mouse_checked: false,
-          picture_checked: false
-        },
+        formInline: [],
       }
     },
     methods: {
@@ -177,7 +174,7 @@
 
       id_change() {  //饭店的id发生变化
         console.log(this.value.length)
-        if (this.value.length == 0) {
+        if (this.value.length === 0) {
           this.input_id = true
         } else {
           this.input_id = false
@@ -277,8 +274,62 @@
               console.log(response.body[i])
               that.gridData.push({'rtsp': response.body[i]['rtsp']})
             }
-          })
+          });
         that.rtsp_show = true
+      },
+
+      cam_id_change() {
+        var that = this;
+        console.log(that.formInline)
+        that.formInline = [];
+        for (var i = 0; i < that.cam_id.length; i++) {
+          that.formInline.push({
+            'cam_id': that.cam_id[i],
+            'maozi_checked': false,
+            'kouzhao_checked': false,
+            'mouse_checked': false,
+            'picture_checked': false
+          })
+        }
+      },
+
+      suanfa_confirm() {
+        let that = this;
+        var channel = "";
+        for (var i = 0; i < that.formInline.length; i++) {
+          channel += "C" + that.formInline[i]['cam_id'] + "S";
+          if (that.formInline[i]['maozi_checked'] === true) {
+            channel += "1107000000";
+          } else {
+            channel += "1007000000";
+          }
+          if (that.formInline[i]['kouzhao_checked'] === true) {
+            channel += "2107000000";
+          } else {
+            channel += "2007000000";
+          }
+          if (that.formInline[i]['mouse_checked'] === true) {
+            channel += "3100000500";
+          } else {
+            channel += "3000000500";
+          }
+          if (that.formInline[i]['picture_checked'] === true) {
+            channel += "4107000000";
+          } else {
+            channel += "4007000000";
+          }
+        }
+        that.$http.get('http://127.0.0.1:8000/api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000")
+          .then((response) => {
+            console.log(response);
+            if (response['res'] === 'ok'){
+              that.$message({
+                message: '配置成功',
+                type: 'success'
+              })
+            }
+          });
+
       },
 
     }

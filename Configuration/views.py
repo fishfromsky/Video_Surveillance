@@ -44,3 +44,14 @@ def see_rtsp(request):
     for s_rtsp in rtsps:
         response.append({'rtsp': s_rtsp.rtsp})
     return JsonResponse(response, safe=False)
+
+
+@require_http_methods(['GET'])
+def add_idconfig(request):
+    res_id = request.GET.get('res_id')
+    config = request.GET.get('config')
+    capturedserver = request.GET.get('capturedserver')
+    interval = request.GET.get('interval')
+    idconfig.objects.create(res_id=res_id, config=config, capturedserver=capturedserver, interval=interval)
+    response = {"res": "ok"}
+    return JsonResponse(response, safe=False)
