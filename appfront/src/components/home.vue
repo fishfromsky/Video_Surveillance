@@ -38,7 +38,7 @@
         <el-button @click="cam_login" :disabled="cam_flag">确定</el-button>
       </el-row>
 
-      <el-dialog title="信息配置" :visible.sync="dialogFormVisible">
+      <el-dialog title="信息配置" :visible.sync="dialogFormVisible" width="500px">
         <el-form :model="login_info">
           <el-form-item label="用户名: ">
             <el-input v-model="login_info.name" autocomplete="off" style="width: 300px"></el-input>
@@ -47,7 +47,7 @@
             <el-input v-model="login_info.password" autocomplete="off" style="width: 300px"></el-input>
           </el-form-item>
           <el-form-item label="ID: ">
-            <el-input v-model="login_info.id" autocomplete="off" style="width: 300px"></el-input>
+            <el-input v-model="login_info.ip" autocomplete="off" style="width: 300px"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -55,13 +55,40 @@
           <el-button type="primary" @click="login_confirm">确 定</el-button>
         </div>
       </el-dialog>
-      <div style="margin-right: auto;  margin-left: auto;width:550px;  height: 400px; margin-top: 50px">
-        <el-transfer v-model="cam_id" :data="cam_data" style="text-align: left"></el-transfer>
+      <div style="margin-right: auto;  margin-left: auto;width:510px;  height: 400px; margin-top: 50px">
+        <el-transfer v-model="cam_id" :data="cam_data" style="text-align: left" :titles="titles"></el-transfer>
       </div>
+
+      <el-dialog title="RTSP" :visible.sync="rtsp_show">
+        <el-table :data="gridData">
+          <el-table-column property="rtsp" label="rtsp"></el-table-column>
+        </el-table>
+      </el-dialog>
+
+      <el-row style="text-align: center; margin-top: 0px">
+        <el-button @click="cam_id_confirm">确定</el-button>
+        <el-button @click="see_rtsp">查看rtsp</el-button>
+      </el-row>
     </div>
     <div class="algorithm" v-if="active === 2">
-
+      <el-form :inline="true" :model="formInline" v-for="cam in cam_id" :key="cam" class="demo-form-inline">
+        <el-form-item :label="cam">
+        </el-form-item>
+        <el-form-item label="帽子">
+          <el-checkbox v-model="formInline.maozi_checked"></el-checkbox>
+        </el-form-item>
+        <el-form-item label="口罩">
+          <el-checkbox v-model="formInline.kouzhao_checked"></el-checkbox>
+        </el-form-item>
+        <el-form-item label="老鼠">
+          <el-checkbox v-model="formInline.mouse_checked"></el-checkbox>
+        </el-form-item>
+        <el-form-item label="抓图">
+          <el-checkbox v-model="formInline.picture_checked"></el-checkbox>
+        </el-form-item>
+      </el-form>
     </div>
+
     <div style="text-align: center; margin-top: 40px">
       <el-button style="margin-top: 12px; align-items: center" @click="next" :disabled="next_flag">下一步</el-button>
     </div>
@@ -77,7 +104,7 @@
         for (let i = 1; i <= 31; i++) {
           cam_data.push({
             key: i + "01",
-            label: `摄像机 ${i + "01"}`
+            label: `摄像头 ${i + "01"}`
           });
         }
         return cam_data;
@@ -115,7 +142,7 @@
         res_name: '',  //饭店的名称
         next_flag: false,  //第一步“下一步”按钮的标志位
 
-        cam_options: [{  //相机列表
+        cam_options: [{  //摄像头列表
           value: '海康',
           label: '海康'
         }, {
@@ -124,15 +151,23 @@
         }],
         cam_value: '',  //选中的相机类型
         cam_flag: true,  //标志是否已经选择相机
-        dialogFormVisible: false,
-        login_info: {
+        dialogFormVisible: false,  //是否隐藏弹出的登录界面
+        login_info: {  //用户输入的登录信息
           name: '',
           password: '',
-          id: ''
+          ip: ''
         },
-        formLabelWidth: '200px',
-        cam_data: generateData(),
-        cam_id: [1, 4]
+        cam_data: generateData(),  //可以选择的摄像头编号
+        cam_id: [],  //选择的摄像头编号
+        titles: ['可选摄像头编号', '已选摄像头编号'],  //选择摄像头部件的标题
+        rtsp_show: false,  //rtsp显示窗口是否显示
+        gridData: [],  //rtsp窗口显示的数据
+        formInline: {
+          maozi_checked: false,
+          kouzhao_checked: false,
+          mouse_checked: false,
+          picture_checked: false
+        },
       }
     },
     methods: {
@@ -150,8 +185,8 @@
       },
 
       jiaoyan() {  //校验按钮
-        var that = this
-        if (this.res_id.length == 0) {
+        var that = this;
+        if (this.res_id.length === 0) {
           that.$message({
             message: '请输入饭店id',
             type: 'warning'
@@ -160,7 +195,7 @@
           this.$http.get('http://127.0.0.1:8000/api/find_company_id?res_id=' + that.res_id)
             .then((response) => {
               var res = JSON.parse(response.bodyText)['name']
-              if (res.length == 0) {
+              if (res.length === 0) {
                 that.$message({
                   message: '校验失败，请检查后重试',
                   type: 'error'
@@ -185,9 +220,9 @@
         this.dialogFormVisible = true
       },
 
-      login_confirm() {
+      login_confirm() {  //登录rtsp的函数
         var that = this
-        if (this.login_info.name == '' || this.login_info.id == '' || this.login_info.password == '') {
+        if (this.login_info.name === '' || this.login_info.ip === '' || this.login_info.password === '') {
           that.$message({
             message: '请填充所有的选项哦',
             type: 'warning'
@@ -196,7 +231,55 @@
           this.dialogFormVisible = false
         }
 
-      }
+      },
+      cam_id_confirm() {
+        var that = this;
+        if (that.cam_id.length == 0) {
+          that.$message({
+            message: '请至少选择一个摄像头哦',
+            type: 'warning'
+          })
+        } else if (that.cam_id.length > 8) {
+          that.$message({
+            message: '最多选择八个摄像头哦',
+            type: 'warning'
+          })
+        } else {
+          var res = ""
+          for (var i = 0; i < that.cam_id.length; i++) {
+            console.log(that.cam_id[i])
+            var rtsp = "rtsp://" + that.login_info.name + ":" + that.login_info.password + "@" + that.login_info.ip + ":554/streaming/channels/" + that.cam_id[i] + "?transportmode=unicast?"
+            that.$http.get('http://127.0.0.1:8000/api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value)
+              .then((response) => {
+                if (response['res'] === 'ok') {
+                  res = response['res']
+
+                }
+              })
+          }
+          if (res === "") {
+            that.$message({
+              message: '添加成功',
+              type: 'success'
+            })
+          }
+
+        }
+      },
+
+      see_rtsp() {  //点击查看rtsp按钮触发的事件
+        var that = this;
+        that.$http.get('http://127.0.0.1:8000/api/see_rtsp?res_id=' + that.res_id)
+          .then((response) => {
+            console.log(response)
+            for (var i = 0; i < response.body.length; i++) {
+              console.log(i)
+              console.log(response.body[i])
+              that.gridData.push({'rtsp': response.body[i]['rtsp']})
+            }
+          })
+        that.rtsp_show = true
+      },
 
     }
   }
@@ -209,7 +292,7 @@
     margin-top: 30px;
   }
 
-  .id_test, .setting {
+  .id_test, .setting, .algorithm {
     margin-top: 50px;
     text-align: center;
   }
