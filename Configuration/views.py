@@ -1,9 +1,11 @@
-from django.http import JsonResponse
+import pandas
+from django.forms import model_to_dict
+from django.http import JsonResponse, HttpResponse
 import requests
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from pandas import json
-from .models import rtsp, idconfig
+from .models import rtsp, idconfig, user
 
 
 @require_http_methods(["GET"])
@@ -54,4 +56,64 @@ def add_idconfig(request):
     interval = request.GET.get('interval')
     idconfig.objects.create(res_id=res_id, config=config, capturedserver=capturedserver, interval=interval)
     response = {"res": "ok"}
+    return JsonResponse(response, safe=False)
+
+
+@require_http_methods(['GET'])
+def login(request):
+    username = request.GET.get('name')
+    password = request.GET.get('psw')
+    res = user.objects.filter(user_name=username, user_password=password)
+    if res:
+        response = {"info": "ok"}
+    else:
+        response = {"info": "no"}
+    return JsonResponse(response, safe=False)
+
+
+@require_http_methods(['GET'])
+def search_terminal(request):
+    response = []
+    results = idconfig.objects.all()
+    for result in results:
+        response.append(model_to_dict(result))
+    return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+@require_http_methods(['GET'])
+def search_idconfig_by_terminal(request):
+    response = []
+    maozi = '关'
+    kouzhao = '关'
+    mouse = '关'
+    picture = '关'
+    terminal = request.GET.get('terminal')
+    id_config = idconfig.objects.filter(terminal_id=terminal)
+    if id_config:
+        res_id = id_config.first().res_id
+        config = id_config.first().config
+        capturedserver = id_config.first().capturedserver
+        interval = id_config.first().interval
+        name = rtsp.objects.filter(res_id=res_id)
+        res_name = name.first().res_name
+        for i in range(int(len(config) / 45)):
+            i = i * 45
+            cam_id = config[i + 1:i + 4]
+            p_1 = config[i + 5:i + 7]
+            p_2 = config[i + 15:i + 17]
+            p_3 = config[i + 25:i + 27]
+            p_4 = config[i + 35:i + 37]
+            if p_1 == '11':
+                maozi = '开'
+            if p_2 == '21':
+                kouzhao = '开'
+            if p_3 == '31':
+                mouse = '开'
+            if p_4 == '41':
+                picture = '开'
+            response.append(
+                {'res_id': res_id, 'res_name': res_name, 'cam_id': cam_id, 'maozi': maozi, 'kouzhao': kouzhao,
+                 'mouse': mouse, 'picture': picture})
+    else:
+        response.append({'res': 'no'})
     return JsonResponse(response, safe=False)
