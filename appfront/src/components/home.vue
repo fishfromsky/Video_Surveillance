@@ -2,20 +2,20 @@
   <div>
     <el-container style="height: 100vh; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1','2', '3']">
+        <el-menu :default-openeds="['1','2', '3']" router>
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>终端配置</template>
             <el-menu-item-group>
               <template slot="title"></template>
-              <el-menu-item index="1-1">终端地图</el-menu-item>
-              <el-menu-item index="1-2">算法配置</el-menu-item>
+              <el-menu-item index="/map">终端地图</el-menu-item>
+              <el-menu-item index="/home">算法配置</el-menu-item>
             </el-menu-item-group>
             <el-menu-item index="1-3">删除终端</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-menu"></i>数据管理</template>
             <el-menu-item index="2-1">报警信息</el-menu-item>
-            <el-menu-item index="2-2">统计图表</el-menu-item>
+            <el-menu-item index="/statistic_chart">统计图表</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title"><i class="el-icon-setting"></i>视频查看</template>
@@ -425,7 +425,7 @@
           for (var i = 0; i < that.cam_id.length; i++) {
             console.log(that.cam_id[i])
             var rtsp = "rtsp://" + that.login_info.name + ":" + that.login_info.password + "@" + that.login_info.ip + ":554/streaming/channels/" + that.cam_id[i] + "?transportmode=unicast?"
-            that.$http.get('http://127.0.0.1:8082/api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value)
+            that.$http.get('http://127.0.0.1:8082/api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value + "&&terminal_id=" + that.terminal_id)
               .then((response) => {
                 if (response['res'] === 'ok') {
                   res = response['res']
@@ -498,7 +498,7 @@
             channel += "4007000000";
           }
         }
-        that.$http.get('http://127.0.0.1:8082/api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000")
+        that.$http.get('http://127.0.0.1:8082/api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000&&terminal_id=" + that.terminal_id)
           .then((response) => {
             console.log(response);
             if (response.body['res'] === 'ok') {

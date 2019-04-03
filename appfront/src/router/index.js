@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
 import login from '@/components/login'
-import analysis from '@/components/analysis'
+import statistic_chart from '@/components/statistic_chart'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -19,9 +19,9 @@ export default new Router({
       component: login
     },
     {
-      path: '/analysis',
-      name: 'analysis',
-      component: analysis
-    }
+      path: '/statistic_chart',
+      name: 'statistic_chart',
+      component: statistic_chart
+    },
   ]
 })
