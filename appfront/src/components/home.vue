@@ -60,6 +60,17 @@
                 <el-table-column property="picture" label="抓图" width="110"></el-table-column>
               </el-table>
             </el-dialog>
+            <el-dialog
+              title="提示"
+              :visible.sync="centerDialogVisible"
+              width="30%"
+              center>
+              <span style="text-align: center">是否重新配置终端算法，点击确定之后算法将会重置</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="centerDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="chongxinpeizhi">确 定</el-button>
+              </span>
+            </el-dialog>
             <el-table
               :data="tableData"
               style="width: 60vw; margin:auto">
@@ -88,34 +99,28 @@
                   <el-button
                     size="mini"
                     type="danger"
-                    @click="handlepeizhi(scope.$index, scope.row)">重新配置
+                    @click="handlepeizhi(scope.$index, scope.row)">配置
                   </el-button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
           <div class="id_test" v-if="active === 1">
-            <el-select v-model="value" placeholder="请选择你要配置的终端" @change="id_change">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
             <div class="input_id">
-              <el-row style="margin-top: 40px">
-                <el-input v-model="res_id" placeholder="请输入饭店ID" style="width: 200px" :disabled="input_id"></el-input>
+              <el-row style="margin-top: 150px">
+                <el-input v-model="res_id" placeholder="请输入饭店ID" style="width: 200px"></el-input>
                 <el-button @click="jiaoyan">校验</el-button>
               </el-row>
             </div>
             <div style="text-align: center; margin-top: 40px">
               <el-row>饭店名称：{{res_name}}</el-row>
             </div>
-            <div style="text-align: center; margin-top: 40px">
-              <el-button style="margin-top: 12px; align-items: center" @click="next" :disabled="next_flag">下一步
+            <el-row style="margin-top: 40px">
+              <el-button style="margin-top: 12px;" @click="previous" :disabled="pre_flag">上一步
               </el-button>
-            </div>
+              <el-button style="margin-top: 12px;" @click="next" :disabled="next_flag">下一步
+              </el-button>
+            </el-row>
           </div>
           <div class="setting" v-if="active === 2">
             <el-row>
@@ -163,10 +168,12 @@
               <el-button @click="see_rtsp">查看rtsp</el-button>
             </el-row>
 
-            <div style="text-align: center; margin-top: 40px">
-              <el-button style="margin-top: 12px; align-items: center" @click="next" :disabled="next_flag">下一步
+            <el-row style="margin-top: 40px; margin-bottom: 40px">
+              <el-button style="margin-top: 12px;" @click="previous" :disabled="pre_flag">上一步
               </el-button>
-            </div>
+              <el-button style="margin-top: 12px;" @click="next" :disabled="next_flag">下一步
+              </el-button>
+            </el-row>
           </div>
           <div class="algorithm" v-if="active === 3">
             <el-form :inline="true" :model="formInline" v-for="form in formInline" :key="form" class="demo-form-inline">
@@ -186,6 +193,7 @@
               </el-form-item>
             </el-form>
             <el-button @click="suanfa_confirm">配置</el-button>
+            <el-button @click="wancheng_confirm" :disabled="suanfa">完成</el-button>
           </div>
 
           <!--<div style="text-align: center; margin-top: 40px">-->
@@ -218,34 +226,8 @@
       };
       return {
         active: 0,
-        options: [{
-          value: '终端1',
-          label: '终端1'
-        }, {
-          value: '终端2',
-          label: '终端2'
-        }, {
-          value: '终端3',
-          label: '终端3'
-        }, {
-          value: '终端4',
-          label: '终端4'
-        }, {
-          value: '终端5',
-          label: '终端5'
-        }, {
-          value: '终端6',
-          label: '终端6'
-        }, {
-          value: '终端7',
-          label: '终端7'
-        }, {
-          value: '终端8',
-          label: '终端8'
-        }],
         value: '',  //要配置的终端
         res_id: '',  //饭店的id
-        input_id: true,  //是否已经输入id
         res_name: '',  //饭店的名称
         next_flag: false,  //第一步“下一步”按钮的标志位
         tableData: [{
@@ -296,17 +278,66 @@
         gridData: [],  //rtsp窗口显示的数据
         formInline: [],
         PeizhiVisible: false,
-        peizhiData: []
+        peizhiData: [],
+        centerDialogVisible: false,
+        terminal_id: '',
+        cam_options: [{
+          value: '海康',
+          label: '海康'
+        }, {
+          value: '其他',
+          label: '其他'
+        }],
+        suanfa: true,
       }
     },
     methods: {
       next() {  //点击下一步
         if (this.active++ > 2) this.active = 0;
       },
+      previous(){
+        if (this.active -- < 0) this.active = 0;
+      },
+      chongxinpeizhi() {
+        let that = this;
+        that.centerDialogVisible = false;
+        $.ajax({
+          url: "api/del_rtsp_idconfig_by_terminal",
+          dataType: "json",
+          data: {
+            terminal_id: this.terminal_id
+          },
+          success: function (data) {
+            if (data['res'] === "yes") {
+              // that.next()  //正式环境需取消注释
+            } else {
+              console.log(response)
+              that.$message({
+                message: '网络错误，请重试',
+                type: 'warning'
+              });
+            }
+          }
+        })
+        that.next() // 测试用
+        // that.$http.get('http://127.0.0.1:8000/api/del_rtsp_idconfig_by_terminal?terminal_id=' + that.terminal_id)
+        //   .then((response) => {
+        //     if (response.body['res'] === 'yes') {
+        //       // that.next()  //正式环境需取消注释
+        //     } else {
+        //       console.log(response)
+        //       that.$message({
+        //         message: '网络错误，请重试',
+        //         type: 'warning'
+        //       })
+        //     }
+        //   });
+        // that.next() // 测试用
+      },
       handlechakan(index, row) {
         this.PeizhiVisible = true;
         let that = this;
-        this.$http.get('http://127.0.0.1:8000/api/search_idconfig_by_terminal?terminal=' + row.terminal)
+        this.$http.get('http://127.0.0.1:8082/api/search_idconfig_by_terminal?terminal=' + row.terminal)
           .then((response) => {
             console.log(response);
             that.peizhiData = response.body
@@ -315,6 +346,8 @@
       },
       handlepeizhi(index, row) {
         console.log(index, row);
+        this.centerDialogVisible = true;
+        this.terminal_id = row.terminal
       },
       id_change() {  //饭店的id发生变化
         console.log(this.value.length)
@@ -326,14 +359,15 @@
       },
 
       jiaoyan() {  //校验按钮
-        var that = this;
+        let that = this;
+
         if (this.res_id.length === 0) {
           that.$message({
             message: '请输入饭店id',
             type: 'warning'
           });
         } else {
-          this.$http.get('http://127.0.0.1:8000/api/find_company_id?res_id=' + that.res_id)
+          this.$http.get('http://127.0.0.1:8082/api/find_company_id?res_id=' + that.res_id)
             .then((response) => {
               var res = JSON.parse(response.bodyText)['name']
               if (res.length === 0) {
@@ -350,6 +384,7 @@
                 this.next_flag = false
               }
             })
+
         }
       },
 
@@ -375,7 +410,7 @@
       },
       cam_id_confirm() {
         var that = this;
-        if (that.cam_id.length == 0) {
+        if (that.cam_id.length === 0) {
           that.$message({
             message: '请至少选择一个摄像头哦',
             type: 'warning'
@@ -390,7 +425,7 @@
           for (var i = 0; i < that.cam_id.length; i++) {
             console.log(that.cam_id[i])
             var rtsp = "rtsp://" + that.login_info.name + ":" + that.login_info.password + "@" + that.login_info.ip + ":554/streaming/channels/" + that.cam_id[i] + "?transportmode=unicast?"
-            that.$http.get('http://127.0.0.1:8000/api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value)
+            that.$http.get('http://127.0.0.1:8082/api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value)
               .then((response) => {
                 if (response['res'] === 'ok') {
                   res = response['res']
@@ -410,7 +445,7 @@
 
       see_rtsp() {  //点击查看rtsp按钮触发的事件
         var that = this;
-        that.$http.get('http://127.0.0.1:8000/api/see_rtsp?res_id=' + that.res_id)
+        that.$http.get('http://127.0.0.1:8082/api/see_rtsp?res_id=' + that.res_id)
           .then((response) => {
             console.log(response)
             for (var i = 0; i < response.body.length; i++) {
@@ -463,23 +498,27 @@
             channel += "4007000000";
           }
         }
-        that.$http.get('http://127.0.0.1:8000/api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000")
+        that.$http.get('http://127.0.0.1:8082/api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000")
           .then((response) => {
             console.log(response);
-            if (response['res'] === 'ok') {
+            if (response.body['res'] === 'ok') {
               that.$message({
                 message: '配置成功',
                 type: 'success'
-              })
+              });
+              that.suanfa = false;
             }
           });
 
+      },
+      wancheng_confirm(){
+        location.reload()
       },
 
     },
     mounted() {
       let that = this;
-      this.$http.get('http://127.0.0.1:8000/api/search_terminal')
+      this.$http.get('http://127.0.0.1:8082/api/search_terminal')
         .then((response) => {
           response = response.body
           console.log(response)

@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'login$', views.login, ),
     url(r'search_terminal$', views.search_terminal,),
     url(r'search_idconfig_by_terminal$', views.search_idconfig_by_terminal,),
+    url(r'del_rtsp_idconfig_by_terminal$', views.del_rtsp_idconfig_by_terminal,),
 ]

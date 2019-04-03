@@ -37,7 +37,7 @@
     },
     methods: {
       login_in() {
-        let that = this
+        let that = this;
         $.ajax({
           url: "api/login",
           dataType: "json",
@@ -46,7 +46,7 @@
             psw: this.stu_password
           },
           success: function (data) {
-            if (data['info'] == "no") {
+            if (data['info'] === "no") {
               that.$message({
                 message: '用户名或密码错误',
                 type: 'warning'

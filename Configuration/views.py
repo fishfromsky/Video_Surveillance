@@ -4,7 +4,8 @@ from django.http import JsonResponse, HttpResponse
 import requests
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
-from pandas import json
+from pandas._libs import json
+
 from .models import rtsp, idconfig, user
 
 
@@ -28,11 +29,11 @@ def find_company_id(request):
 
 @require_http_methods(['GET'])
 def add_rtsp(request):
-    id1 = request.GET.get('id')
-    res_name = request.GET.get('res_name')
-    camid = request.GET.get('camid')
-    rtsp1 = request.GET.get('rtsp')
-    cam_name = request.GET.get('cam_name')
+    id1 = request.GET.get('id').encode('utf-8')
+    res_name = request.GET.get('res_name').encode('utf-8')
+    camid = request.GET.get('camid').encode('utf-8')
+    rtsp1 = request.GET.get('rtsp').encode('utf-8')
+    cam_name = request.GET.get('cam_name').encode('utf-8')
     rtsp.objects.create(res_id=id1, res_name=res_name, camid=camid, rtsp=rtsp1, cam_name=cam_name)
     response = {"res": "ok"}
     return JsonResponse(response)
@@ -50,10 +51,10 @@ def see_rtsp(request):
 
 @require_http_methods(['GET'])
 def add_idconfig(request):
-    res_id = request.GET.get('res_id')
-    config = request.GET.get('config')
-    capturedserver = request.GET.get('capturedserver')
-    interval = request.GET.get('interval')
+    res_id = request.GET.get('res_id').encode('utf-8')
+    config = request.GET.get('config').encode('utf-8')
+    capturedserver = request.GET.get('capturedserver').encode('utf-8')
+    interval = request.GET.get('interval').encode('utf-8')
     idconfig.objects.create(res_id=res_id, config=config, capturedserver=capturedserver, interval=interval)
     response = {"res": "ok"}
     return JsonResponse(response, safe=False)
@@ -97,6 +98,10 @@ def search_idconfig_by_terminal(request):
         name = rtsp.objects.filter(res_id=res_id)
         res_name = name.first().res_name
         for i in range(int(len(config) / 45)):
+            maozi = '关'
+            kouzhao = '关'
+            mouse = '关'
+            picture = '关'
             i = i * 45
             cam_id = config[i + 1:i + 4]
             p_1 = config[i + 5:i + 7]
@@ -116,4 +121,13 @@ def search_idconfig_by_terminal(request):
                  'mouse': mouse, 'picture': picture})
     else:
         response.append({'res': 'no'})
+    return JsonResponse(response, safe=False)
+
+
+@require_http_methods(['GET'])
+def del_rtsp_idconfig_by_terminal(request):
+    terminal_id = request.GET.get('terminal_id')
+    rtsp.objects.filter(terminal_id=terminal_id.encode('utf-8')).delete()
+    idconfig.objects.filter(terminal_id=terminal_id.encode('utf-8')).delete()
+    response = {'res': 'yes'}
     return JsonResponse(response, safe=False)
