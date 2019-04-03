@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="39a29209-8591-48c2-8394-280686173f05" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/appfront/node_modules/" />
+    <ignored path="$PROJECT_DIR$/appfront2/node_modules/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Video_Surveillance" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/src/components/home.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="10013">
+              <caret line="554" column="16" selection-start-line="554" selection-start-column="16" selection-end-line="554" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Configuration/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="125" column="38" lean-forward="true" selection-start-line="125" selection-start-column="38" selection-end-line="125" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Video_Surveillance/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Configuration/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/src/components/login.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/build/webpack.dev.conf.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1672">
+              <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/build/webpack.prod.conf.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/src/App.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/src/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/appfront/src/router/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>rules</find>
+      <find>eslint</find>
+      <find>handleEdit</find>
+      <find>centerDialogVisible</find>
+      <find>cam_options</find>
+      <find>input_id</find>
+      <find>suanfa_confirm</find>
+      <find>jiaoyan</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Configuration/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/appfront/src/store/modules/app.js" />
+        <option value="$PROJECT_DIR$/appfront/src/utils/validate.js" />
+        <option value="$PROJECT_DIR$/appfront/src/views/login/index.vue" />
+        <option value="$PROJECT_DIR$/appfront/src/api/login.js" />
+        <option value="$PROJECT_DIR$/appfront/src/App.vue" />
+        <option value="$PROJECT_DIR$/appfront/build/webpack.base.conf.js" />
+        <option value="$PROJECT_DIR$/appfront/src/main.js" />
+        <option value="$PROJECT_DIR$/appfront/src/components/analysis.vue" />
+        <option value="$PROJECT_DIR$/Configuration/models.py" />
+        <option value="$PROJECT_DIR$/Configuration/urls.py" />
+        <option value="$PROJECT_DIR$/appfront/src/components/login.vue" />
+        <option value="$PROJECT_DIR$/appfront/src/router/index.js" />
+        <option value="$PROJECT_DIR$/appfront/src/components/statistic_chart.vue" />
+        <option value="$PROJECT_DIR$/appfront/src/components/home.vue" />
+        <option value="$PROJECT_DIR$/Video_Surveillance/settings.py" />
+        <option value="$PROJECT_DIR$/Configuration/views.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="928" />
+    <option name="width" value="504" />
+    <option name="height" value="540" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="appfront" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="appfront" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="appfront" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="appfront" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="appfront" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="appfront" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="router" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="Configuration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="Configuration" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Video_Surveillance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+              <item name="Video_Surveillance" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Video_Surveillance" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Video_Surveillance" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="Video_Surveillance.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8082" />
+      <option name="host" value="127.0.0.1" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39a29209-8591-48c2-8394-280686173f05" name="Default Changelist" comment="" />
+      <created>1553942211615</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1553942211615</updated>
+      <workItem from="1553942212880" duration="1159000" />
+      <workItem from="1554012945385" duration="748000" />
+      <workItem from="1554019178003" duration="8412000" />
+      <workItem from="1554038614294" duration="8894000" />
+      <workItem from="1554083514398" duration="1152000" />
+      <workItem from="1554103384355" duration="3451000" />
+      <workItem from="1554107875829" duration="408000" />
+      <workItem from="1554126281091" duration="164000" />
+      <workItem from="1554132542365" duration="5232000" />
+      <workItem from="1554195055485" duration="2770000" />
+      <workItem from="1554201695131" duration="2284000" />
+      <workItem from="1554204010107" duration="249000" />
+      <workItem from="1554204677228" duration="107000" />
+      <workItem from="1554204805519" duration="1692000" />
+      <workItem from="1554227477789" duration="74000" />
+      <workItem from="1554227567719" duration="1227000" />
+      <workItem from="1554259995576" duration="11231000" />
+      <workItem from="1554281781173" duration="2547000" />
+      <workItem from="1554285225323" duration="2177000" />
+    </task>
+    <task id="LOCAL-00001" summary="整体框架优化，新增查看配置">
+      <created>1554137732932</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1554137732932</updated>
+    </task>
+    <task id="LOCAL-00002" summary="算法配置大体设置">
+      <created>1554278385257</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1554278385257</updated>
+    </task>
+    <task id="LOCAL-00003" summary="新增统计图表，优化算法配置">
+      <created>1554294672356</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1554294672356</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="53978000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4983165" visible="true" weight="0.20522387" />
+      <window_info id="Structure" order="1" sideWeight="0.5016835" side_tool="true" weight="0.2513369" />
+      <window_info id="Favorites" order="2" sideWeight="0.5016835" side_tool="true" weight="0.2513369" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32914925" />
+      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32881355" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013405" side_tool="true" weight="0.32357043" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49865952" weight="0.32681563" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.39774013" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="整体框架优化，新增查看配置" />
+    <MESSAGE value="算法配置大体设置" />
+    <MESSAGE value="新增统计图表，优化算法配置" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增统计图表，优化算法配置" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/appfront/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/api/table.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/icons/index.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/icons/svgo.yml" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/icons/svg/example.svg" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/icons/svg/eye.svg" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/styles/element-ui.scss" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/views/form/index.vue" />
+    <entry file="file://$PROJECT_DIR$/Configuration/migrations/0001_initial.py" />
+    <entry file="file://$PROJECT_DIR$/Configuration/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/node_modules/vuex/dist/vuex.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/node_modules/vuex/dist/vuex.esm.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/views/404.vue" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/utils/validate.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/store/modules/app.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/store/getters.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/views/dashboard/index.vue" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/store/index.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/api/login.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/utils/auth.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/utils/request.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/store/modules/user.js" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/views/login/index.vue" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/assets/logo.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Video_Surveillance/urls.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/build/webpack.base.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Configuration/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/components/analysis.vue" />
+    <entry file="file://$PROJECT_DIR$/appfront/build/build.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/build/check-versions.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/config/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/components/statistic_chart.vue" />
+    <entry file="file://$PROJECT_DIR$/appfront/src/components/home.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10013">
+          <caret line="554" column="16" selection-start-line="554" selection-start-column="16" selection-end-line="554" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Configuration/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/components/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/build/webpack.dev.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1672">
+          <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/build/webpack.prod.conf.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appfront/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Video_Surveillance/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Configuration/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="125" column="38" lean-forward="true" selection-start-line="125" selection-start-column="38" selection-end-line="125" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
