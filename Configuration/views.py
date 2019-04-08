@@ -5,7 +5,7 @@ import requests
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from pandas._libs import json
-
+from django.contrib.auth.hashers import make_password, check_password
 from .models import rtsp, idconfig, user
 
 
@@ -45,7 +45,8 @@ def add_rtsp(request):
 def see_rtsp(request):
     response = []
     res_id = request.GET.get('res_id')
-    rtsps = rtsp.objects.filter(res_id=res_id)
+    terminal_id = request.GET.get('terminal_id')
+    rtsps = rtsp.objects.filter(res_id=res_id, terminal_id=terminal_id)
     for s_rtsp in rtsps:
         response.append({'rtsp': s_rtsp.rtsp})
     return JsonResponse(response, safe=False)
@@ -67,8 +68,9 @@ def add_idconfig(request):
 def login(request):
     username = request.GET.get('name')
     password = request.GET.get('psw')
-    res = user.objects.filter(user_name=username, user_password=password)
-    if res:
+    res = user.objects.filter(user_name=username)
+    result = check_password(password, res.first().user_password)
+    if result:
         response = {"info": "ok"}
     else:
         response = {"info": "no"}

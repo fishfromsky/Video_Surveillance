@@ -133,16 +133,16 @@
               <el-button @click="cam_login" :disabled="cam_flag">确定</el-button>
             </el-row>
 
-            <el-dialog title="信息配置" :visible.sync="dialogFormVisible" width="500px">
+            <el-dialog title="信息配置" :visible.sync="dialogFormVisible" width="400px">
               <el-form :model="login_info">
                 <el-form-item label="用户名: ">
-                  <el-input v-model="login_info.name" autocomplete="off" style="width: 300px"></el-input>
+                  <el-input v-model="login_info.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码: ">
-                  <el-input v-model="login_info.password" autocomplete="off" style="width: 300px"></el-input>
+                  <el-input v-model="login_info.password" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="ID: ">
-                  <el-input v-model="login_info.ip" autocomplete="off" style="width: 300px"></el-input>
+                <el-form-item label="IP: ">
+                  <el-input v-model="login_info.ip" autocomplete="off"></el-input>
                 </el-form-item>
               </el-form>
               <div slot="footer" class="dialog-footer">
@@ -304,10 +304,12 @@
       },
       previous() {
         if (this.active-- < 0) this.active = 0;
+        this.next_flag = false
       },
       chongxinpeizhi() {
         let that = this;
         that.centerDialogVisible = false;
+        that.clear_input();
         $.ajax({
           url: that.$site + "api/del_rtsp_idconfig_by_terminal",
           dataType: "json",
@@ -364,11 +366,12 @@
             .then((response) => {
               var res = JSON.parse(response.bodyText)['name']
               console.log("the length of the res is: ", res.length)
-              if (res.length === 0) {
+              if (res === 'wrong') {
                 that.$message({
                   message: '校验失败，请检查后重试',
                   type: 'error'
                 });
+                this.next_flag = true
               } else {
                 that.$message({
                   message: '校验成功',
@@ -440,9 +443,10 @@
 
       see_rtsp() {  //点击查看rtsp按钮触发的事件
         var that = this;
-        that.$http.get(this.$site + 'api/see_rtsp?res_id=' + that.res_id)
+        that.$http.get(this.$site + 'api/see_rtsp?res_id=' + that.res_id + '&&terminal_id=' + that.terminal_id)
           .then((response) => {
             console.log(response)
+            that.gridData = []
             for (var i = 0; i < response.body.length; i++) {
               console.log(i)
               console.log(response.body[i])
@@ -520,12 +524,24 @@
       wancheng_confirm() {
         location.reload()
       },
+      clear_input() {
+        this.res_id = '';
+        this.res_name = '';
+        this.cam_value = '';
+        this.login_info = {  //用户输入的登录信息
+          name: '',
+          password: '',
+          ip: ''
+        };
+        this.gridData = []
+
+      },
 
     },
     mounted() {
       let that = this;
       var person_name = sessionStorage.getItem('person_name');
-      console.log("person_name:",person_name)
+      console.log("person_name:", person_name)
       if (person_name === null) {
         this.$router.push('/')
       } else {

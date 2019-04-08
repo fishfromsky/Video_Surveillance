@@ -11,17 +11,27 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
+      meta: {
+        title: '算法配置'
+      }
     },
     {
       path: '/',
       name: 'login',
-      component: login
+      component: login,
+      meta: {
+        title: '登录'
+      }
     },
     {
       path: '/statistic_chart',
       name: 'statistic_chart',
-      component: statistic_chart
+      component: statistic_chart,
+      meta: {
+        title: '可视化分析'
+      }
+
     },
   ]
 })
