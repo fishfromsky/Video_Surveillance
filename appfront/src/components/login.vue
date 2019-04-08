@@ -39,13 +39,14 @@
       login_in() {
         let that = this;
         $.ajax({
-          url: "api/login",
+          url: that.$site + "api/login",
           dataType: "json",
           data: {
             name: this.stu_number,
             psw: this.stu_password
           },
           success: function (data) {
+            console.log(data)
             if (data['info'] === "no") {
               that.$message({
                 message: '用户名或密码错误',
@@ -53,14 +54,9 @@
               });
             } else {
               that.$router.push({
-                name: "home",
-                params: {
-                  stu_number: that.stu_number,
-                  stu_name: data['name']
-                }
+                name: "home"
               });
-              sessionStorage.setItem('person_id', that.stu_number);
-              sessionStorage.setItem('person_name', data['name']);
+              sessionStorage.setItem('person_name', that.stu_number)
             }
           }
         })

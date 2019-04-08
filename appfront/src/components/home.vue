@@ -33,12 +33,10 @@
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item @click.native="safe_quit">安全退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>admin</span>
+          <span>{{person_name}}</span>
         </el-header>
 
         <el-main>
@@ -116,7 +114,7 @@
               <el-row>饭店名称：{{res_name}}</el-row>
             </div>
             <el-row style="margin-top: 40px">
-              <el-button style="margin-top: 12px;" @click="previous" :disabled="pre_flag">上一步
+              <el-button style="margin-top: 12px;" @click="previous">上一步
               </el-button>
               <el-button style="margin-top: 12px;" @click="next" :disabled="next_flag">下一步
               </el-button>
@@ -164,7 +162,7 @@
             </el-dialog>
 
             <el-row style="text-align: center; margin-top: 0px">
-              <el-button @click="cam_id_confirm">确定</el-button>
+              <el-button @click="cam_id_confirm" :disabled="cam_confirm">确定</el-button>
               <el-button @click="see_rtsp">查看rtsp</el-button>
             </el-row>
 
@@ -225,15 +223,16 @@
         return cam_data;
       };
       return {
+        person_name: '',
         active: 0,
         value: '',  //要配置的终端
         res_id: '',  //饭店的id
         res_name: '',  //饭店的名称
-        next_flag: false,  //第一步“下一步”按钮的标志位
+        next_flag: true,  //第一步“下一步”按钮的标志位
         tableData: [{
           terminal: '终端一',
           detail: '未配置',
-          peizhi: false
+          peizhi: true
         }, {
           terminal: '终端二',
           detail: '未配置',
@@ -266,6 +265,7 @@
         cam_value: '',  //选中的相机类型
         cam_flag: true,  //标志是否已经选择相机
         dialogFormVisible: false,  //是否隐藏弹出的登录界面
+        cam_confirm: true,
         login_info: {  //用户输入的登录信息
           name: '',
           password: '',
@@ -294,22 +294,29 @@
     methods: {
       next() {  //点击下一步
         if (this.active++ > 2) this.active = 0;
+        this.next_flag = !this.next_flag
       },
-      previous(){
-        if (this.active -- < 0) this.active = 0;
+      safe_quit() {
+        sessionStorage.clear();
+        console.log("lalallallal")
+        this.$router.push('/')
+
+      },
+      previous() {
+        if (this.active-- < 0) this.active = 0;
       },
       chongxinpeizhi() {
         let that = this;
         that.centerDialogVisible = false;
         $.ajax({
-          url: "api/del_rtsp_idconfig_by_terminal",
+          url: that.$site + "api/del_rtsp_idconfig_by_terminal",
           dataType: "json",
           data: {
             terminal_id: this.terminal_id
           },
           success: function (data) {
             if (data['res'] === "yes") {
-              // that.next()  //正式环境需取消注释
+              if (that.active++ > 2) that.active = 0;
             } else {
               console.log(response)
               that.$message({
@@ -319,25 +326,11 @@
             }
           }
         })
-        that.next() // 测试用
-        // that.$http.get('http://127.0.0.1:8000/api/del_rtsp_idconfig_by_terminal?terminal_id=' + that.terminal_id)
-        //   .then((response) => {
-        //     if (response.body['res'] === 'yes') {
-        //       // that.next()  //正式环境需取消注释
-        //     } else {
-        //       console.log(response)
-        //       that.$message({
-        //         message: '网络错误，请重试',
-        //         type: 'warning'
-        //       })
-        //     }
-        //   });
-        // that.next() // 测试用
       },
       handlechakan(index, row) {
         this.PeizhiVisible = true;
         let that = this;
-        this.$http.get('http://127.0.0.1:8082/api/search_idconfig_by_terminal?terminal=' + row.terminal)
+        this.$http.get(this.$site + 'api/search_idconfig_by_terminal?terminal=' + row.terminal)
           .then((response) => {
             console.log(response);
             that.peizhiData = response.body
@@ -367,9 +360,10 @@
             type: 'warning'
           });
         } else {
-          this.$http.get('http://127.0.0.1:8082/api/find_company_id?res_id=' + that.res_id)
+          this.$http.get(this.$site + 'api/find_company_id?res_id=' + that.res_id)
             .then((response) => {
               var res = JSON.parse(response.bodyText)['name']
+              console.log("the length of the res is: ", res.length)
               if (res.length === 0) {
                 that.$message({
                   message: '校验失败，请检查后重试',
@@ -405,6 +399,7 @@
           });
         } else {
           this.dialogFormVisible = false
+          this.cam_confirm = false
         }
 
       },
@@ -425,11 +420,10 @@
           for (var i = 0; i < that.cam_id.length; i++) {
             console.log(that.cam_id[i])
             var rtsp = "rtsp://" + that.login_info.name + ":" + that.login_info.password + "@" + that.login_info.ip + ":554/streaming/channels/" + that.cam_id[i] + "?transportmode=unicast?"
-            that.$http.get('http://127.0.0.1:8082/api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value + "&&terminal_id=" + that.terminal_id)
+            that.$http.get(this.$site + 'api/add_rtsp?id=' + that.res_id + '&&res_name=' + that.res_name + "&&camid=" + that.cam_id[i] + "&&rtsp=" + rtsp + "&&cam_name=" + that.cam_value + "&&terminal_id=" + that.terminal_id)
               .then((response) => {
                 if (response['res'] === 'ok') {
                   res = response['res']
-
                 }
               })
           }
@@ -438,6 +432,7 @@
               message: '添加成功',
               type: 'success'
             })
+            that.next_flag = !this.next_flag
           }
 
         }
@@ -445,7 +440,7 @@
 
       see_rtsp() {  //点击查看rtsp按钮触发的事件
         var that = this;
-        that.$http.get('http://127.0.0.1:8082/api/see_rtsp?res_id=' + that.res_id)
+        that.$http.get(this.$site + 'api/see_rtsp?res_id=' + that.res_id)
           .then((response) => {
             console.log(response)
             for (var i = 0; i < response.body.length; i++) {
@@ -475,65 +470,83 @@
       suanfa_confirm() {
         let that = this;
         var channel = "";
+        var flag = 0;
         for (var i = 0; i < that.formInline.length; i++) {
           channel += "C" + that.formInline[i]['cam_id'] + "S";
           if (that.formInline[i]['maozi_checked'] === true) {
             channel += "1107000000";
+            flag = 1;
           } else {
             channel += "1007000000";
           }
           if (that.formInline[i]['kouzhao_checked'] === true) {
             channel += "2107000000";
+            flag = 1;
           } else {
             channel += "2007000000";
           }
           if (that.formInline[i]['mouse_checked'] === true) {
             channel += "3100000500";
+            flag = 1;
           } else {
             channel += "3000000500";
           }
           if (that.formInline[i]['picture_checked'] === true) {
             channel += "4107000000";
+            flag = 1;
           } else {
             channel += "4007000000";
           }
         }
-        that.$http.get('http://127.0.0.1:8082/api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000&&terminal_id=" + that.terminal_id)
-          .then((response) => {
-            console.log(response);
-            if (response.body['res'] === 'ok') {
-              that.$message({
-                message: '配置成功',
-                type: 'success'
-              });
-              that.suanfa = false;
-            }
-          });
-
+        if (flag === 0) {
+          that.$message({
+            message: '请至少配置一项哦',
+            type: 'warning'
+          })
+        } else {
+          that.$http.get(this.$site + 'api/add_idconfig?res_id=' + that.res_id + "&&config=" + channel + "&&capturedserver=00&&interval=3600000&&terminal_id=" + that.terminal_id)
+            .then((response) => {
+              console.log(response);
+              if (response.body['res'] === 'ok') {
+                that.$message({
+                  message: '配置成功',
+                  type: 'success'
+                });
+                that.suanfa = false;
+              }
+            });
+        }
       },
-      wancheng_confirm(){
+      wancheng_confirm() {
         location.reload()
       },
 
     },
     mounted() {
       let that = this;
-      this.$http.get('http://127.0.0.1:8082/api/search_terminal')
-        .then((response) => {
-          response = response.body
-          console.log(response)
-          console.log(response.length)
-          for (var i = 0; i < response.length; i++) {
+      var person_name = sessionStorage.getItem('person_name');
+      console.log("person_name:",person_name)
+      if (person_name === null) {
+        this.$router.push('/')
+      } else {
+        this.person_name = person_name
+        this.$http.get(this.$site + 'api/search_terminal')
+          .then((response) => {
+            response = response.body
             console.log(response)
-            for (var j = 0; j < that.tableData.length; j++) {
-              if (that.tableData[j].terminal === response[i]['terminal_id']) {
-                console.log(that.tableData[j].terminal)
-                that.tableData[j].detail = '已配置'
-                that.tableData[j].peizhi = false
+            console.log('test:', response.length)
+            for (var i = 0; i < response.length; i++) {
+              console.log(response)
+              for (var j = 0; j < that.tableData.length; j++) {
+                if (that.tableData[j].terminal === response[i]['terminal_id']) {
+                  console.log(that.tableData[j].terminal)
+                  that.tableData[j].detail = '已配置'
+                  that.tableData[j].peizhi = false
+                }
               }
             }
-          }
-        })
+          })
+      }
     }
   }
 </script>

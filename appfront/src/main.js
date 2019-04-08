@@ -12,7 +12,8 @@ import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.use(ElementUI);
-Vue.use(VueResource)
+Vue.use(VueResource);
+Vue.prototype.$site = 'http://127.0.0.1:8082/';
 
 /* eslint-disable no-new */
 new Vue({
